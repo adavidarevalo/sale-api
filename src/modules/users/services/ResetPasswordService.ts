@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 import UserTokensRepository from '../typeorm/repositories/UserTokensRepository';
 import { isAfter, addHours } from 'date-fns';
 import { hash } from 'bcryptjs';
+import User from '../typeorm/entities/User';
 
 interface IRequest {
     token: string;
@@ -11,7 +12,7 @@ interface IRequest {
 }
 
 class ResetPasswordService {
-    public async execute({ token, password }: IRequest): Promise<void> {
+    public async execute({ token, password }: IRequest): Promise<User> {
         const usersRepository = getCustomRepository(UsersRepository);
         const userTokensRepository = getCustomRepository(UserTokensRepository);
 
@@ -37,6 +38,8 @@ class ResetPasswordService {
         user.password = await hash(password, 8);
 
         await usersRepository.save(user);
+
+        return user;
     }
 }
 

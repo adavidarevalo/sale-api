@@ -7,7 +7,7 @@ class UserTokensRepository extends Repository<UserToken> {
     async findByToken(token: string): Promise<UserToken | undefined> {
         const userToken = await this.findOne({
             where: {
-                token,
+                id: token,
             },
         });
 

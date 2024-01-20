@@ -3,6 +3,7 @@ import UsersRepository from '../typeorm/repositories/UsersRepository';
 import User from '../typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 import UserTokensRepository from '../typeorm/repositories/UserTokensRepository';
+import EtherealMail from '@config/mail/EtherrealMail';
 
 interface IRequest {
     email: string;
@@ -23,6 +24,21 @@ class SendForgotPasswordEmailService {
             '🚀 ~ SendForgotPasswordEmailService ~ execute ~ userToken:',
             userToken,
         );
+
+        await EtherealMail.sendMail({
+            to: {
+                name: user.name,
+                email: user.email,
+            },
+            subject: 'Reset your password',
+            templateData: {
+                template: `Password recovery request: ${userToken.token}`,
+                variables: {
+                    name: user.name,
+                    token: userToken.token,
+                },
+            },
+        });
     }
 }
 
