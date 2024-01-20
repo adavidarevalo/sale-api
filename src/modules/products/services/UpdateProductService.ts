@@ -20,8 +20,8 @@ class UpdateProductService {
             throw new AppError('Product not found', 404);
         }
 
-        Object.assign(product, rest);
-        await productsRepository.save(product);
+        const userToUpdate = Object.assign(product, rest);
+        await productsRepository.save(userToUpdate);
 
         return product;
     }

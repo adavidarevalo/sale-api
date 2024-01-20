@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import ProductsController from '../controllers/ProductsController';
 import { Joi, Segments, celebrate } from 'celebrate';
+import CustomerController from '../controllers/CustomerController';
 
 const router = Router();
 
-const productsController = new ProductsController();
+const customerController = new CustomerController();
 
-router.get('/', productsController.index);
+router.get('/', customerController.index);
 
 router.get(
     '/:id',
@@ -15,7 +15,7 @@ router.get(
             id: Joi.string().uuid().required(),
         },
     }),
-    productsController.show,
+    customerController.show,
 );
 
 router.post(
@@ -23,25 +23,23 @@ router.post(
     celebrate({
         [Segments.BODY]: {
             name: Joi.string().required(),
-            price: Joi.number().precision(2).required(),
-            quantity: Joi.number().required(),
+            email: Joi.string().email().required(),
         },
     }),
-    productsController.create,
+    customerController.create,
 );
 router.put(
     '/:id',
     celebrate({
+        [Segments.BODY]: {
+            name: Joi.string().required(),
+            email: Joi.string().email().required(),
+        },
         [Segments.PARAMS]: {
             id: Joi.string().uuid().required(),
         },
-        [Segments.BODY]: {
-            name: Joi.string().required(),
-            price: Joi.number().precision(2).required(),
-            quantity: Joi.number().required(),
-        },
     }),
-    productsController.update,
+    customerController.update,
 );
 router.delete(
     '/:id',
@@ -50,7 +48,7 @@ router.delete(
             id: Joi.string().uuid().required(),
         },
     }),
-    productsController.delete,
+    customerController.delete,
 );
 
 export default router;
