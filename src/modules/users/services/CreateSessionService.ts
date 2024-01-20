@@ -33,7 +33,8 @@ class CreateSessionService {
             throw new AppError('Incorrect email/password combination.', 401);
         }
 
-        const token = sign(JSON.stringify({ id: user.id }), JWTConfig.secret, {
+        console.log('JWTConfig.secret ', JWTConfig.secret);
+        const token = sign({}, JWTConfig.secret, {
             subject: user.id,
             expiresIn: JWTConfig.expiresIn,
         });

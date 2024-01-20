@@ -3,7 +3,7 @@ import { verify } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 
-interface TokenPayload {
+interface ITokenPayload {
     iat: number;
     exp: number;
     sub: string;
@@ -20,11 +20,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const decodedToken = verify(token, authConfig.secret);
 
-        const { sub } = decodedToken as TokenPayload;
+        const { sub } = decodedToken as ITokenPayload;
 
-        // req.user = {
-        //     id: sub,
-        // };
+        req.userId = sub;
 
         return next();
     } catch (error) {

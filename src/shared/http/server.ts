@@ -7,6 +7,7 @@ import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import '@shared/typeorm';
 import dotenv from 'dotenv';
+import uploadConfig from '@config/upload';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(routes);
+app.use('/files', express.static(uploadConfig.directory));
 
 app.use(errors());
 
@@ -26,6 +28,7 @@ app.use(
         response: Response,
         next: NextFunction,
     ) => {
+        console.log('🚀 ~ error:', error);
         if (error instanceof AppError) {
             return response.status(error.statusCode).json({
                 status: 'error',
