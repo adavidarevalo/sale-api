@@ -9,7 +9,7 @@ import AppError from '@shared/errors/AppError';
 import '@shared/typeorm';
 import uploadConfig from '@config/upload';
 import { pagination } from 'typeorm-pagination';
-import rateLimiter from '@shared/middleware/rateLimiter';
+import rateLimiter from '@shared/http/middleware/rateLimiter';
 
 const app = express();
 
@@ -32,7 +32,6 @@ app.use(
         response: Response,
         next: NextFunction,
     ) => {
-        console.log('🚀 ~ error:', error);
         if (error instanceof AppError) {
             return response.status(error.statusCode).json({
                 status: 'error',

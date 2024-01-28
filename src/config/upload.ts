@@ -36,7 +36,7 @@ export default {
     config: {
         disk: {},
         aws: {
-            bucket: 'Sales-api-test',
+            bucket: 'sales-api-test',
         },
     },
 } as IUploadConfig;

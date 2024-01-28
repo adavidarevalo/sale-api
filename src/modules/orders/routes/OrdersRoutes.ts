@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import isAuthenticated from '../../../shared/middleware/isAuthenticated';
+import isAuthenticated from '../../../shared/http/middleware/isAuthenticated';
 import OrdersController from '../controllers/OrdersController';
 import { Joi, Segments, celebrate } from 'celebrate';
 
