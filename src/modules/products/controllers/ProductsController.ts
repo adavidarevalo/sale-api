@@ -1,18 +1,19 @@
 import { Request, Response } from 'express';
-import ListProductService from '../services/ListProductsService';
-import ShowProductService from '../services/ShowProductService';
-import CreateProductService from '../services/CreateProductService';
-import UpdateProductService from '../services/UpdateProductService';
-import DeleteProductService from '../services/DeleteProductService';
-import AppError from '@shared/errors/AppError';
+// import ListProductService from '../services/ListProductsService';
+// import ShowProductService from '../services/ShowProductService';
+// import CreateProductService from '../services/CreateProductService';
+// import UpdateProductService from '../services/UpdateProductService';
+// import DeleteProductService from '../services/DeleteProductService';
+// import AppError from '@shared/errors/AppError';
 
 class ProductsController {
     public async index(request: Request, response: Response) {
-        const listProductService = new ListProductService();
+        // const listProductService = new ListProductService();
 
-        const products = await listProductService.execute();
+        // const products = await listProductService.execute();
 
-        return response.json(products);
+        // return response.json(products);
+        return response.json([]);
     }
 
     // public async show(request: Request, response: Response) {
