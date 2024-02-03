@@ -1,75 +1,74 @@
 import { Request, Response } from 'express';
-// import ListProductService from '../services/ListProductsService';
-// import ShowProductService from '../services/ShowProductService';
-// import CreateProductService from '../services/CreateProductService';
-// import UpdateProductService from '../services/UpdateProductService';
-// import DeleteProductService from '../services/DeleteProductService';
-// import AppError from '@shared/errors/AppError';
+import ListProductService from '../services/ListProductsService';
+import ShowProductService from '../services/ShowProductService';
+import CreateProductService from '../services/CreateProductService';
+import UpdateProductService from '../services/UpdateProductService';
+import DeleteProductService from '../services/DeleteProductService';
+import AppError from '@shared/errors/AppError';
 
 class ProductsController {
     public async index(request: Request, response: Response) {
-        // const listProductService = new ListProductService();
+        const listProductService = new ListProductService();
 
-        // const products = await listProductService.execute();
+        const products = await listProductService.execute();
 
-        // return response.json(products);
-        return response.json([]);
+        return response.json(products);
     }
 
-    // public async show(request: Request, response: Response) {
-    //     const { id } = request.params;
+    public async show(request: Request, response: Response) {
+        const { id } = request.params;
 
-    //     const showProductService = new ShowProductService();
+        const showProductService = new ShowProductService();
 
-    //     const product = await showProductService.execute({ id });
+        const product = await showProductService.execute({ id });
 
-    //     if (!product) {
-    //         throw new AppError('Product not found', 404);
-    //     }
+        if (!product) {
+            throw new AppError('Product not found', 404);
+        }
 
-    //     return response.json(product);
-    // }
+        return response.json(product);
+    }
 
-    // public async create(request: Request, response: Response) {
-    //     const { name, price, quantity } = request.body;
+    public async create(request: Request, response: Response) {
+        const { name, price, quantity } = request.body;
 
-    //     const createProductService = new CreateProductService();
+        const createProductService = new CreateProductService();
 
-    //     const product = await createProductService.execute({
-    //         name,
-    //         price,
-    //         quantity,
-    //     });
+        const product = await createProductService.execute({
+            name,
+            price,
+            quantity,
+        });
 
-    //     return response.json(product);
-    // }
+        return response.json(product);
+    }
 
-    // public async update(request: Request, response: Response) {
-    //     const { id } = request.params;
+    public async update(request: Request, response: Response) {
+        const { id } = request.params;
 
-    //     const { name, price, quantity } = request.body;
+        const { name, price, quantity } = request.body;
 
-    //     const updateProductService = new UpdateProductService();
+        const updateProductService = new UpdateProductService();
 
-    //     const product = await updateProductService.execute({
-    //         id,
-    //         name,
-    //         price,
-    //         quantity,
-    //     });
+        const product = await updateProductService.execute({
+            id,
+            name,
+            price,
+            quantity,
+        });
 
-    //     return response.json(product);
-    // }
+        return response.json(product);
+    }
 
-    // public async delete(request: Request, response: Response) {
-    //     const { id } = request.params;
+    public async delete(request: Request, response: Response) {
+        const { id } = request.params;
 
-    //     const deleteProductService = new DeleteProductService();
+        const deleteProductService = new DeleteProductService();
 
-    //     await deleteProductService.execute({ id });
+        await deleteProductService.execute({ id });
 
-    //     return response.json([]);
-    // }
+        return response.json([]);
+    }
 }
 
 export default ProductsController;
